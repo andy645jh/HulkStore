@@ -47,7 +47,10 @@ public class Register {
     @Column(name="val_saldo")
     private int valSaldo;    
       
-    @JsonBackReference
+    @Column(name="operation")
+    private int operation;  
+    
+	@JsonBackReference
     @ManyToOne
     @JoinColumn(name="darkex_id", referencedColumnName = "id")    
     private Darkex darkex;
@@ -93,6 +96,14 @@ public class Register {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	
+    public int getOperation() {
+		return operation;
+	}
+
+	public void setOperation(int operation) {
+		this.operation = operation;
 	}
 
 	public Date getDate() {

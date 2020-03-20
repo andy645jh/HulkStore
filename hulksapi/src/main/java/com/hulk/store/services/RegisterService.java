@@ -32,6 +32,6 @@ public class RegisterService implements IRegisterService{
     
     public void deleteId(Long id)
     {
-    	repository.deleteById(id);
+    	repository.deleteById(id);    	
     }
 }
