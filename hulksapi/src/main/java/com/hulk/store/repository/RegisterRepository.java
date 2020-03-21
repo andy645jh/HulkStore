@@ -7,5 +7,6 @@ import com.hulk.store.entity.Register;
 
 @Repository
 public interface RegisterRepository extends CrudRepository<Register, Long>{
-
+	
+	
 }

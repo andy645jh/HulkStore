@@ -1,10 +1,10 @@
-class DarkexService
+class KardexService
 {    
     constructor() {
         this.URL = "http://localhost:8080/darkex/";
     }
 
-    async getAlldDarkex() {
+    async getAllKardex() {
         try {            
             const response = await fetch(this.URL);
             const darkexJson = await response.json();
@@ -16,7 +16,19 @@ class DarkexService
           }
     }
 
-    async getDarkex(id) 
+    async searchKardex(word) {
+        try {            
+            const response = await fetch(this.URL+'search/'+word);
+            const darkexJson = await response.json();
+            console.log("Darkex: ",darkexJson);
+            return darkexJson;
+      
+          } catch (err) {            
+            console.error(err);
+          }
+    }
+
+    async getKardex(id) 
     {        
         return fetch(this.URL+id,{
             method:'GET'
@@ -32,7 +44,7 @@ class DarkexService
             });
     }
 
-    async createDarkex(darkex)
+    async createKardex(darkex)
      {
         return fetch(this.URL, {
             method: "PUT",
@@ -45,14 +57,14 @@ class DarkexService
                 if (!response.ok) {
                     this.handleResponseError(response);
                 }                
-                return response.ok;
+                return response.json();
             })
             .catch(error => {
                 this.handleError(error);
             });
     }
 
-    async deletePerson(id)
+    async deleteKardex(id)
     {        
         return fetch(this.URL+id, {
             method: "DELETE",            
@@ -68,7 +80,7 @@ class DarkexService
             });
     }
 
-    async updateDarkex(darkex) 
+    async updateKardex(darkex) 
     {        
         return fetch(this.URL+darkex.id, {
             method: "PUT",            
@@ -96,4 +108,4 @@ class DarkexService
         console.log(error.message);
     }
 }
-export default DarkexService;
+export default KardexService;

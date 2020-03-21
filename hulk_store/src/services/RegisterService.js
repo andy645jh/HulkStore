@@ -16,6 +16,18 @@ class RegisterService
           }
     }
 
+    async getdRegisterBy(id) {
+        try {            
+            const response = await fetch(this.URL+id);
+            const registerJson = await response.json();
+            console.log("RegisterBy: ",registerJson);
+            return registerJson;
+      
+          } catch (err) {            
+            console.error(err);
+          }
+    }
+
     async getPerson(id) 
     {        
         return fetch(this.URL+id,{

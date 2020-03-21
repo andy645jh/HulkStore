@@ -36,10 +36,14 @@ public class DarkexService implements IDarkexServices{
     {
     	return darkexRepo.findById(id).get();
     }   
-
     
     public void deleteId(Long id)
     {
     	darkexRepo.deleteById(id);
+    }
+    
+    public List<Darkex> search(String word)
+    {
+    	return darkexRepo.search(word);
     }
 }

@@ -8,5 +8,6 @@ public interface IDarkexServices {
 	List<Darkex> findAll();
 	Darkex findId(Long id);
     void deleteId(Long id);
-    Darkex save(Darkex p);  
+    Darkex save(Darkex p);
+    List<Darkex> search(String word);
 }

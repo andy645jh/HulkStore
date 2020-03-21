@@ -30,6 +30,16 @@ public class RegisterController {
 		return registerService.findAll();
 	}
 	
+	@RequestMapping(value = "/registers/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Register> findBy(@PathVariable Long id) {
+		Darkex darkex = darkexService.findId(id);
+		if(darkex!=null)
+		{
+			return darkex.getRegisters();
+		}
+		return null;
+	}
+	
 	@RequestMapping(value = "/registers/{darkex_id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Register create(@RequestBody Register register, @PathVariable long darkex_id)
 	{
@@ -38,7 +48,12 @@ public class RegisterController {
 		if(darkex!=null) 			
 		{
 			List<Register> regs =darkex.getRegisters();
-			Register reg = regs.get(regs.size()-1);			
+			Register reg = null;
+			if(regs.size()>0)
+			{
+				reg = regs.get(regs.size()-1);		
+			}
+				
 			register = calculateRegister(register, reg);			
 			
 			register.setDarkex(darkex);
@@ -69,24 +84,35 @@ public class RegisterController {
 			break;
 			
 			//SALIDA-VENTA
-			case 2:
-				newReg.setCantSalida(newReg.getCantEntrada());
+			case 2:				
 				newReg.setValSalida(newReg.getCantSalida() * lastReg.getUnitVal());
 				if(lastReg!=null) {
 					int cantSaldo = lastReg.getCantSaldo() - newReg.getCantSalida();
 					int valSaldo = lastReg.getValSaldo() - newReg.getValSalida();
 					newReg.setCantSaldo(cantSaldo);
-					newReg.setValSaldo(valSaldo);	
-					newReg.setCantEntrada(0);
+					newReg.setValSaldo(valSaldo);					
 					newReg.setUnitVal(lastReg.getUnitVal());
 				}
 			break;
 			
+			//DEVOLUCION ENTRADA-COMPRA
 			case 3:
 				newReg.setValEntrada(newReg.getUnitVal() * newReg.getCantEntrada());
 				if(lastReg!=null) {
 					int cantSaldo = lastReg.getCantSaldo() - newReg.getCantEntrada();
 					int valSaldo = lastReg.getValSaldo() - newReg.getValEntrada();
+					newReg.setCantSaldo(cantSaldo);
+					newReg.setValSaldo(valSaldo);					
+					newReg.setUnitVal(valSaldo/cantSaldo);
+				}
+			break;
+			
+			//DEVOLUCION SALIDA-VENTA
+			case 4:
+				newReg.setValSalida(newReg.getUnitVal() * newReg.getCantSalida());
+				if(lastReg!=null) {
+					int cantSaldo = lastReg.getCantSaldo() + newReg.getCantSalida();
+					int valSaldo = lastReg.getValSaldo() + newReg.getValSalida();
 					newReg.setCantSaldo(cantSaldo);
 					newReg.setValSaldo(valSaldo);					
 					newReg.setUnitVal(valSaldo/cantSaldo);

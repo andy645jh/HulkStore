@@ -1,24 +1,24 @@
 package com.hulk.store.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @Table(name = "darkex")
-public class Darkex implements Serializable 
+@JsonIdentityInfo(property = "id", generator = ObjectIdGenerators.PropertyGenerator.class)
+public class Darkex
 {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +30,9 @@ public class Darkex implements Serializable
     @Column(name="proveedores")
     private String proveedores;
       
-    @JsonManagedReference
-    @OneToMany(mappedBy = "darkex", cascade = CascadeType.ALL, fetch = FetchType.LAZY)    
+    //@JsonManagedReference
+    @JsonIgnore
+    @OneToMany(mappedBy = "darkex")    
     private List<Register> registers;
 
 	public Darkex() { }  

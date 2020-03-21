@@ -10,12 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "register")
-public class Register {
+@JsonIdentityInfo(property = "id", generator = ObjectIdGenerators.PropertyGenerator.class)
+public class Register 
+{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -49,10 +51,9 @@ public class Register {
       
     @Column(name="operation")
     private int operation;  
-    
-	@JsonBackReference
+    		
     @ManyToOne
-    @JoinColumn(name="darkex_id", referencedColumnName = "id")    
+    @JoinColumn(name="darkex_id")    
     private Darkex darkex;
 
 	public Register() { }   
@@ -176,8 +177,8 @@ public class Register {
 
 	public void setValSaldo(int valSaldo) {
 		this.valSaldo = valSaldo;
-	}
-
+	}	
+	
 	public Darkex getDarkex() {
 		return darkex;
 	}

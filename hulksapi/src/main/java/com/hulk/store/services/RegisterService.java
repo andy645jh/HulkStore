@@ -15,7 +15,7 @@ public class RegisterService implements IRegisterService{
 
     @Override
     public List<Register> findAll() {
-
+    	
         return (List<Register>) repository.findAll();
     }
     
@@ -28,7 +28,6 @@ public class RegisterService implements IRegisterService{
     {
     	return repository.findById(id).get();
     }   
-
     
     public void deleteId(Long id)
     {

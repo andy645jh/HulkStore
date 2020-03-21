@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import RegisterServices from './services/RegisterService';
+import RegisterServices from '../../services/RegisterService';
 
-class Table extends Component {
+class RegisterList extends Component {
     constructor() {
         super();
         this.state = {
@@ -16,6 +16,8 @@ class Table extends Component {
         const registers = this.props.registers;
 
         return (
+            <div className="container">
+            <h2>REGISTROS</h2>
             <table className="table table-bordered text-center">
                 <thead>
                     <tr>
@@ -56,8 +58,9 @@ class Table extends Component {
                     
                 </tbody>
             </table>
+            </div>
         );
     }
 }
 
-export default Table;
+export default RegisterList;

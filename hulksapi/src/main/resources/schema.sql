@@ -22,7 +22,6 @@ CREATE TABLE IF NOT EXISTS REGISTER (
   val_saldo INT,
   operation INT,  
   darkex_id INT,
-  PRIMARY KEY(id),
-  FOREIGN KEY (darkex_id) REFERENCES DARKEX(id)
+  PRIMARY KEY(id)
 );
 
