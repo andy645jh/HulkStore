@@ -51,4 +51,15 @@ public class DarkexController {
 	{
 		return darkexService.search(word.toLowerCase());		
 	}
+	
+	@RequestMapping(value = "/darkex/{id}", method = RequestMethod.DELETE)
+	public boolean delete(@PathVariable Long id)
+	{
+		try {
+			darkexService.deleteId(id);
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
+	}
 }

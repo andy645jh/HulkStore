@@ -4,6 +4,7 @@ import KardexList from './KardexList';
 import SearchKardex from './SearchKardex';
 import RegisterService from '../../services/RegisterService';
 import KardexService from '../../services/KardexService';
+import Tittle from '../general/Tittle';
 
 class KardexPage extends Component {
 
@@ -63,12 +64,31 @@ class KardexPage extends Component {
         });
     }
 
+    delete(id)
+    {
+        console.log("searchKardex:", id);
+        this.kardexServices.deleteKardex(id).then((result) => {
+
+            console.log("searchKardexResult:", result);
+            if (result) {
+                this.getAllKardex();
+                return true;
+            } else {
+                return false;
+            }
+
+        });
+    }
+
     render() {
         return (
             <>
-                <SearchKardex search={(w)=> this.searchKardex(w)} />
+                <Tittle tittle="PRODUCTOS" />
                 <KardexForm create={(k,r) => this.createKardex(k,r)}/>
-                <KardexList darkexList={this.state.darkexList} />
+                <div className="mt-5">
+                    <SearchKardex search={(w)=> this.searchKardex(w)} />                
+                    <KardexList delete={(d)=>this.delete(d)} darkexList={this.state.darkexList} />
+                </div>
             </>
         );
     }
