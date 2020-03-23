@@ -3,7 +3,6 @@ import RegisterForm from './RegisterForm';
 import RegisterService from '../../services/RegisterService';
 import RegisterList from './RegisterList';
 import Tittle from '../general/Tittle';
-import {IntlProvider} from 'react-intl';
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -56,10 +55,8 @@ class RegisterPage extends Component {
           <div className="container">
             <Tittle tittle={kardex.productName} />
             <RegisterForm lastRegister={lastRegister} create={(p) => this.createRegister(p)} />
-            <div className="mt-5">  
-            <IntlProvider locale="es">            
+            <div className="mt-5">
               <RegisterList registers={this.state.registers} />
-              </IntlProvider>
             </div>
           </div>
         }

@@ -4,13 +4,21 @@ import * as Icon from 'react-bootstrap-icons';
 
 class RegisterForm extends Component {
 
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
+        this.state = {
+            errors: {
+                description: '',
+                unitVal: '',
+                cantidad: ''
+            }
+        }
         console.log("Props ", props);
     }
     onClickAdd(e) {
         e.preventDefault();
+
+        if (!this.isValid()) return;
 
         const register = {
             description: this.refs.description.value,
@@ -20,7 +28,6 @@ class RegisterForm extends Component {
             date: new Date(),
             operation: this.refs.operation.value
         }
-
 
         switch (this.refs.operation.value) {
             case '1':
@@ -47,6 +54,50 @@ class RegisterForm extends Component {
         this.refs.description.value = '';
         this.refs.unitVal.value = '';
         this.refs.cantidad.value = '';
+
+        this.setErrors('');
+    }
+
+    setErrors(val) {
+        var errors = { ...this.state.errors };
+        errors.description = val;
+        errors.unitVal = val;
+        errors.cantidad = val;
+        this.setState({ errors: errors });
+    }
+    
+    isValid() {
+        var isGood = true;
+
+        //se hace directo porq el setErrors 
+        //requiere de un tiempo para llamar el render
+        var errors = { ...this.state.errors };
+        errors.description = 'is-valid';
+        errors.unitVal = 'is-valid';
+        errors.cantidad = 'is-valid';
+
+        if (this.refs.description.value === '') {
+            errors.description = 'is-invalid';
+            isGood = false;
+        }
+
+        if (this.refs.unitVal.value === '' || this.refs.unitVal.value === '0') {
+            errors.unitVal = 'is-invalid';
+            isGood = false;
+        }
+
+        const maxProductos = this.props.lastRegister.cantSaldo;
+        const cant = parseInt(this.refs.cantidad.value);
+        console.log("Cant: "+cant);
+        if (this.refs.cantidad.value==='' || cant<=0 || cant>maxProductos) {           
+            
+            errors.cantidad = 'is-invalid';
+            isGood = false;
+        }
+
+        
+        this.setState({ errors: errors });
+        return isGood;
     }
 
     render() {
@@ -68,23 +119,32 @@ class RegisterForm extends Component {
                             </div>
 
                             <div className="col-6">
-                                <input type="text-area" className="form-control" ref="description" placeholder="Descripcion" />
+                                <div className="form-group">
+                                    <input type="text-area" className={"form-control " + this.state.errors.description} ref="description" placeholder="Descripcion" required />
+                                    <div className="invalid-feedback">Campo requerido*</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="col-5">
                         <div className="row">
                             <div className="col-4">
-                                <input type="number" className="form-control" ref="unitVal" placeholder="Valor Unitario" />
+                                <div className="form-group">
+                                    <input type="number" className={"form-control " + this.state.errors.unitVal} ref="unitVal" placeholder="Valor Unitario" required />
+                                    <div className="invalid-feedback">Campo requerido*</div>
+                                </div>
                             </div>
 
                             <div className="col-4">
-                                <input type="number" className="form-control" ref="cantidad" max={maxProductos} placeholder="Cantidad" />
+                                <div className="form-group">
+                                    <input type="number" className={"form-control " + this.state.errors.cantidad} ref="cantidad" max={maxProductos} placeholder="Cantidad" required />
+                                    <div className="invalid-feedback">Cantidad incorrecta*</div>
+                                </div>
                             </div>
 
-                            <button onClick={(e) => this.onClickAdd(e)} type="button" className="btn btn-primary">
-                                <span className="btn-span"><Icon.Plus  /></span>Agregar
-                        </button>
+                            <button onClick={(e) => this.onClickAdd(e)} type="button" className="btn btn-primary fit">
+                                <span className="btn-span"><Icon.Plus /></span>Agregar
+                            </button>
                         </div>
                     </div>
                 </form>

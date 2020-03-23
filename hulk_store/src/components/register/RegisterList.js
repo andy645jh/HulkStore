@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RegisterServices from '../../services/RegisterService';
 import dateFormat from 'dateformat';
-import {IntlProvider,FormattedNumber} from 'react-intl';
+import NumberFormat from 'react-number-format';
 
 class RegisterList extends Component {
     constructor() {
@@ -11,15 +11,12 @@ class RegisterList extends Component {
             registers: []
         };
 
-        this.regServices = new RegisterServices();
-        var dat = dateFormat(new Date(), "yyyy-mm-dd");
-        console.log("Date : "+dat);
+        this.regServices = new RegisterServices();        
     }
 
     formatVal(operation, val, esEntrada)
-    {
-        
-        console.log("OPer: "+operation);
+    {        
+        //console.log("Oper: "+operation);
         switch(operation)
         {
             case 3:
@@ -65,7 +62,7 @@ class RegisterList extends Component {
                                     <td>{reg.id}</td>
                                     <td>{dateFormat(reg.date, "dd-mm-yyyy")}</td>
                                     <td>{reg.description}</td>
-                                    <td><FormattedNumber value={reg.unitVal} style="currency"/></td>
+                                    <td>{reg.unitVal}</td>
                                     <td>{ this.formatVal(reg.operation, reg.cantEntrada, true)}</td>
                                     <td>{ this.formatVal(reg.operation, reg.valEntrada, true)}</td>
                                     <td>{ this.formatVal(reg.operation, reg.cantSalida)}</td>

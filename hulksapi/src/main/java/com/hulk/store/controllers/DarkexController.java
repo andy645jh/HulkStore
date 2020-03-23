@@ -2,6 +2,8 @@ package com.hulk.store.controllers;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +25,7 @@ public class DarkexController {
 	@Autowired
 	private IDarkexServices darkexService;
 
+	
 	@RequestMapping(value = "/darkex", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Darkex> findAll() {
 

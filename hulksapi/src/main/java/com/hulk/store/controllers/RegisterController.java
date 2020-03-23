@@ -2,6 +2,8 @@ package com.hulk.store.controllers;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,7 +26,8 @@ public class RegisterController {
 	
 	@Autowired
 	private IDarkexServices darkexService;
-
+		
+	
 	@RequestMapping(value = "/registers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Register> findAll() {
 		return registerService.findAll();

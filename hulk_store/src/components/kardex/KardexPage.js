@@ -50,6 +50,12 @@ class KardexPage extends Component {
 
     searchKardex(word) {
         console.log("searchKardex:", word);
+        if(word==='')
+        {
+            this.getAllKardex();
+            return;
+        }
+        
         this.kardexServices.searchKardex(word).then((result) => {
 
             console.log("searchKardexResult:", result);
