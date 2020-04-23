@@ -51,20 +51,3 @@ class App extends Component {
   }
 }
 export default App;
-
-/*
-<li className="nav-item active">
-  <NavLink exact activeClassName="current" className="nav-link" to="/">Inicio <span className="sr-only">(current)</span></NavLink>
-</li>
-<li className="nav-item">
-  <NavLink exact activeClassName="current" className="nav-link" to="/kardex">Productos</NavLink>
-</li>
-<li className="nav-item">                    
-  <NavLink exact activeClassName="current" className="nav-link" to="/kardex">Vender</NavLink>
-</li>
-
- <Route path='/' exact component={KardexPage} />
-  <Route path='/kardex/:id' exact component={RegisterPage} />
-  <Route path='/kardex' exact component={KardexPage} />
-<Route path='/error' exact component={ErrorPage} />
-*/

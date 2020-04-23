@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -49,6 +52,8 @@ public class Register
     @Column(name="val_saldo")
     private int valSaldo;    
       
+    @Min(value = 1, message = "La operacion no debe ser menor a 1")
+    @Max(value = 4, message = "La operacion no debe ser menor a 4")
     @Column(name="operation")
     private int operation;  
     		

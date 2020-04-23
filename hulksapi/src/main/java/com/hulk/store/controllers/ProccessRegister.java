@@ -1,12 +1,21 @@
 package com.hulk.store.controllers;
 
+import java.util.List;
+
 import com.hulk.store.entity.Register;
 
 public class ProccessRegister 
 {
+	private List<Register> registerList = null;
 	
-	public Register calculateRegister(Register newReg, Register lastReg) 
+	public ProccessRegister(List<Register> regs) {
+		registerList = regs;
+	}
+	
+	public Register calculateNewRegister( Register newReg ) 
 	{
+		Register lastReg = GetLastRegister();		
+		
 		switch (newReg.getOperation()) 
 		{
 			//ENTRADA-COMPRA
@@ -69,4 +78,13 @@ public class ProccessRegister
 		return newReg;
 	}
 
+	private Register GetLastRegister()
+	{
+		Register lastReg = null;
+		if(registerList.size()>0)
+		{
+			lastReg = registerList.get(registerList.size()-1);		
+		}
+		return lastReg;
+	}
 }

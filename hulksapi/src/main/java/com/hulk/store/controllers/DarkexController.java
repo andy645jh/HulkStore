@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hulk.store.entity.Darkex;
+import com.hulk.store.entity.Register;
 import com.hulk.store.services.IDarkexServices;
+import com.hulk.store.utils.Rules;
 
 @RestController
 @CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE,RequestMethod.PUT })
@@ -32,20 +34,22 @@ public class DarkexController {
 		return darkexService.findAll();
 	}
 	
-	@RequestMapping(value = "/darkex", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Darkex create(@RequestBody Darkex darkex) {
-
-		return darkexService.save(darkex);
+	@RequestMapping(value = "/darkex/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Darkex> create(@RequestBody Darkex darkex) {
+		
+		if(Rules.isValidKardex(darkex)) 
+		{
+			Darkex kardexCreated = darkexService.save(darkex);
+			return new ResponseEntity<Darkex>(kardexCreated, HttpStatus.OK);			
+		}		
+		
+		return new ResponseEntity<Darkex>(HttpStatus.UNPROCESSABLE_ENTITY);		
 	}
 	
 	@RequestMapping(value = "/darkex/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Darkex find(@PathVariable Long id)
 	{
-		Darkex darkex = darkexService.findId(id);
-		/*if(darkex==null)
-		{
-			return new ResponseEntity<>("Resource not found", HttpStatus.NOT_FOUND);
-		}*/
+		Darkex darkex = darkexService.findId(id);		
 		return darkex;
 	}
 	

@@ -6,14 +6,10 @@ import static io.restassured.RestAssured.get;
 import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest
-class HulksapiApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-	@Test
-	public void testLista() {
-		get("/registers").then().body("modelo[0]", equalTo("Yoga"));		
-	}
+public class HulksapiApplicationTests 
+{
+	public static final String CONTENT_TYPE = "application/json";
+	public static final String BASE_URI = "http://localhost";
+	public static final int PORT = 8080;	
+	
 }
