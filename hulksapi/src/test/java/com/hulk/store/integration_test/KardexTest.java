@@ -1,4 +1,4 @@
-package com.hulk.store;
+package com.hulk.store.integration_test;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hulk.store.HulksapiApplicationTests;
 import com.hulk.store.entity.Darkex;
 
 import io.restassured.RestAssured;
