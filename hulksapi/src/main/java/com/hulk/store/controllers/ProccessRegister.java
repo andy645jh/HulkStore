@@ -78,13 +78,15 @@ public class ProccessRegister
 		return newReg;
 	}
 
-	private Register GetLastRegister()
+	public Register GetLastRegister()
 	{
 		Register lastReg = null;
+		if(registerList == null) return null;
+		
 		if(registerList.size()>0)
 		{
 			lastReg = registerList.get(registerList.size()-1);		
 		}
-		return lastReg;
+		return (lastReg != null && lastReg.getId()!=null) ? lastReg : null;
 	}
 }
